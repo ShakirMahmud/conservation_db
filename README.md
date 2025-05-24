@@ -1,4 +1,3 @@
-````markdown
 # PostgreSQL Assignment - Wildlife Conservation Monitoring
 
 ---
@@ -88,6 +87,3 @@ SELECT region, COUNT(*) FROM rangers GROUP BY region;
 ```
 
 এটি প্রতিটি অঞ্চলের রেঞ্জারদের সংখ্যা দেখাবে।
-
-```
-```
