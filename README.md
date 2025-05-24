@@ -28,8 +28,6 @@ CREATE TABLE rangers (
 
 ---
 
-## Foreign Key (ফরেন কি)
-
 **Foreign Key** এমন একটি কলাম যা অন্য একটি টেবিলের Primary Key-কে **reference** করে। এটি দুইটি টেবিলের মধ্যে **সম্পর্ক** তৈরি করে।
 
 **বৈশিষ্ট্য:**
