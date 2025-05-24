@@ -73,20 +73,28 @@ UPDATE species
 SET conservation_status = 'Historic'
 WHERE discovery_date < '1800-01-01';
 
-SELECT sighting_id,
-  CASE
-    WHEN EXTRACT(HOUR FROM sighting_time) < 12 THEN 'Morning'
-    WHEN EXTRACT(HOUR FROM sighting_time) BETWEEN 12 AND 16 THEN 'Afternoon'
-    ELSE 'Evening'
-  END AS time_of_day
+CREATE OR REPLACE FUNCTION get_time_of_day(ts TIMESTAMP)
+RETURNS TEXT AS $$
+BEGIN
+  IF EXTRACT(HOUR FROM ts) < 12 THEN
+    RETURN 'Morning';
+  ELSIF EXTRACT(HOUR FROM ts) BETWEEN 12 AND 16 THEN
+    RETURN 'Afternoon';
+  ELSE
+    RETURN 'Evening';
+  END IF;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT sighting_id, get_time_of_day(sighting_time) AS time_of_day
 FROM sightings
 ORDER BY sighting_id;
+
 
 DELETE FROM rangers
 WHERE ranger_id NOT IN (
     SELECT DISTINCT ranger_id FROM sightings
 );
-
 
 
 SELECT * FROM rangers;
